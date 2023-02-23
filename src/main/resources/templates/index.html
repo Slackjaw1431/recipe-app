@@ -5,6 +5,12 @@
     <title>Index Page for Recipes</title>
 </head>
 <body>
+<table>
+    <tr th:each="recipe : ${recipes}">
+        <td th:text="${recipe.id}"></td>
+        <td th:text="${recipe.description}"></td>
+    </tr>
+</table>
 
 </body>
 </html>

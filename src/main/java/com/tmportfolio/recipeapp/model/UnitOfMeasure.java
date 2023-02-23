@@ -24,7 +24,7 @@ public class UnitOfMeasure {
         return description;
     }
 
-    public void setUom(String description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 }

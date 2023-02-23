@@ -9,7 +9,6 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String description;
 
     @ManyToMany(mappedBy = "categories")//categories is the one mapping this relationship
