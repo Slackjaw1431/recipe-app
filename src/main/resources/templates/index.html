@@ -6,6 +6,8 @@
 </head>
 <body>
 <table>
+    <tr>ID</tr>
+    <tr>Recipe Name</tr>
     <tr th:each="recipe : ${recipes}">
         <td th:text="${recipe.id}"></td>
         <td th:text="${recipe.description}"></td>
