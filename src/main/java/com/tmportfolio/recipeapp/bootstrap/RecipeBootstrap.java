@@ -4,6 +4,7 @@ import com.tmportfolio.recipeapp.model.*;
 import com.tmportfolio.recipeapp.repositories.CategoryRepository;
 import com.tmportfolio.recipeapp.repositories.RecipeRepository;
 import com.tmportfolio.recipeapp.repositories.UnitOfMeasureRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
@@ -27,6 +28,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
     }
 
     @Override
+    @Transactional
     public void onApplicationEvent(ContextRefreshedEvent event) {
         recipeRepository.saveAll(getRecipes());
     }
