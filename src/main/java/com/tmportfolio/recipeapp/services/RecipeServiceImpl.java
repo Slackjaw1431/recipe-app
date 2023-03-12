@@ -5,6 +5,7 @@ import com.tmportfolio.recipeapp.repositories.RecipeRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -22,5 +23,17 @@ public class RecipeServiceImpl implements RecipeService {
         recipeRepository.findAll().iterator().forEachRemaining(recipeSet::add);
 
         return recipeSet;
+    }
+
+    @Override
+    public Recipe findById(Long aLong) {
+        Optional<Recipe> foundRecipe = recipeRepository.findById(aLong);
+
+        if(!foundRecipe.isPresent()){
+            return null;
+        }
+        else{
+            return foundRecipe.get();
+        }
     }
 }
