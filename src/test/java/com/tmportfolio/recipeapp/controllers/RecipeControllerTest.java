@@ -37,8 +37,8 @@ class RecipeControllerTest {
 
         when(recipeService.findById(anyLong())).thenReturn(recipe);
 
-        mockMvc.perform(get("/show"))
+        mockMvc.perform(get("/recipes/show/1"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("show"));
+                .andExpect(view().name("recipes/show"));
     }
 }

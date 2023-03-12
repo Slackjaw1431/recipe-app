@@ -32,8 +32,6 @@ public class RecipeServiceImpl implements RecipeService {
         if(!foundRecipe.isPresent()){
             return null;
         }
-        else{
-            return foundRecipe.get();
-        }
+        return foundRecipe.get();
     }
 }
