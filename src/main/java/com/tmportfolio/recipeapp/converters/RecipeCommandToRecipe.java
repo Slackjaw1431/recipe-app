@@ -1,9 +1,6 @@
 package com.tmportfolio.recipeapp.converters;
 
 import com.tmportfolio.recipeapp.commands.RecipeCommand;
-import com.tmportfolio.recipeapp.converters.CategoryCommandToCategory;
-import com.tmportfolio.recipeapp.converters.IngredientCommandToIngredient;
-import com.tmportfolio.recipeapp.converters.NotesCommandToNotes;
 import com.tmportfolio.recipeapp.model.Recipe;
 import lombok.Synchronized;
 import org.springframework.core.convert.converter.Converter;
@@ -39,7 +36,7 @@ public class RecipeCommandToRecipe implements Converter<RecipeCommand, Recipe> {
         recipe.setDescription(source.getDescription());
         recipe.setDifficulty(source.getDifficulty());
         recipe.setDirections(source.getDirections());
-        recipe.setServings(source.getServings());
+        recipe.setServing(source.getServings());
         recipe.setSource(source.getSource());
         recipe.setUrl(source.getUrl());
         recipe.setNotes(notesConverter.convert(source.getNotes()));

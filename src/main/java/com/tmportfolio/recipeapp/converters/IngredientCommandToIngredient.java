@@ -33,13 +33,4 @@ public class IngredientCommandToIngredient implements Converter<IngredientComman
         return ingredient;
     }
 
-    @Override
-    public boolean autoApply() {
-        return false;
-    }
-
-    @Override
-    public Class<? extends Annotation> annotationType() {
-        return null;
-    }
 }

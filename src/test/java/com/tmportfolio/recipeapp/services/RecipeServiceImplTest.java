@@ -1,5 +1,7 @@
 package com.tmportfolio.recipeapp.services;
 
+import com.tmportfolio.recipeapp.converters.RecipeCommandToRecipe;
+import com.tmportfolio.recipeapp.converters.RecipeToRecipeCommand;
 import com.tmportfolio.recipeapp.model.Recipe;
 import com.tmportfolio.recipeapp.repositories.RecipeRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,15 +24,20 @@ class RecipeServiceImplTest {
     RecipeServiceImpl recipeService;
     @Mock
     RecipeRepository recipeRepository;
+    @Mock
+    RecipeCommandToRecipe recipeCommandToRecipe;
+    @Mock
+    RecipeToRecipeCommand recipeToRecipeCommand;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        recipeService = new RecipeServiceImpl(recipeRepository);
+
+        recipeService = new RecipeServiceImpl(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
     }
 
     @Test
-    void getRecipes() {
+    void getRecipesTest() {
         Recipe  recipe  = new Recipe();
         HashSet recipes = new HashSet();
         recipes.add(recipe);
@@ -44,7 +51,7 @@ class RecipeServiceImplTest {
     }
 
     @Test
-    void getRecipesById() throws Exception {
+    void getRecipesByIdTest() throws Exception {
         Recipe recipe = new Recipe();
         recipe.setId(1L);
         Optional<Recipe> recipeOptional = Optional.of(recipe);
