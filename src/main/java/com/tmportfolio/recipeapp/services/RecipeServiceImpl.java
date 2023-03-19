@@ -59,8 +59,8 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    public Recipe deleteRecipeById(Long valueOf) {
-        return null;
+    public void deleteById(Long valueOf) {
+        recipeRepository.deleteById(valueOf);
     }
 
     @Override

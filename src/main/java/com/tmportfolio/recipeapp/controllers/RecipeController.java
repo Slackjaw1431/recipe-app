@@ -1,6 +1,7 @@
 package com.tmportfolio.recipeapp.controllers;
 
 import com.tmportfolio.recipeapp.commands.RecipeCommand;
+import com.tmportfolio.recipeapp.repositories.RecipeRepository;
 import com.tmportfolio.recipeapp.services.RecipeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,9 +40,10 @@ public class RecipeController {
         return "redirect:/recipe/" + savedCommand.getId() + "/show/";
     }
 
-//    @RequestMapping(name="recipe/{id}/delete")
-//    public String deleteRecipe(@PathVariable String id, Model model){
-//        model.addAttribute("recipe", recipeService.deleteRecipeById(Long.valueOf(id)));
-//        return "recipes/show";
-//    }
+    @GetMapping
+    @RequestMapping("/recipe/{id}/delete/")
+    public String deleteRecipe(@PathVariable String id){
+        recipeService.deleteById(Long.valueOf(id));
+        return "redirect:/";
+    }
 }
