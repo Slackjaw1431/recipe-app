@@ -5,9 +5,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"
           th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}">
-
     <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
-
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
@@ -15,22 +13,48 @@
     <title>Index Page for Recipes</title>
 </head>
 <body>
-<table class="table table-bordered" style="width: 75%; margin:auto">
-        <thead class="table table-dark">
-        <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Recipe</th>
-            <th scope="col">View</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="recipe : ${recipes}">
-            <td th:text="${recipe.id}"></td>
-            <td th:text="${recipe.description}"></td>
-            <td><a href="#" th:href="@{'/recipes/show/' + ${recipe.id}}">View</a></td>
-        </tr>
+<div class="container-fluid" style="margin-top: 20px">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h1 class="panel-title">My Recipes!</h1>
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive" th:if="${not #lists.isEmpty(recipes)}">
+                        <table class="table table-hover ">
+                            <thead class="thead-inverse">
+                            <tr>
+                                <th>ID</th>
+                                <th>Description</th>
+                                <th>View</th>
+                                <th>Edit</th>
+                            </tr>
+                            </thead>
+                            <tr th:remove="all">
+                                <td>123</td>
+                                <td>Tasty Goodnees 1</td>
+                                <td><a href="#">View</a></td>
+                                <td><a href="#">B=Edit</a></td>
+                            </tr>
+                            <tr th:remove="all">
+                                <td>12333</td>
+                                <td>Tasty Goodnees 2</td>
+                                <td><a href="#">View</a></td>
+                            </tr>
+                            <tr th:each="recipe : ${recipes}">
+                            <td th:text="${recipe.id}"></td>
+                            <td th:text="${recipe.description}"></td>
+                            <td><a href="#" th:href="@{'/recipes/' + ${recipe.id} + '/show/'}">View</a></td>
+                                <td><a href="#" th:href="@{'/recipes/' + ${recipe.id} + '/edit/'}">Edit</a></td>
+                        </tr>
+                        </table>
+                        <tr><td><a href="#" th:href="@{'recipes/new'}">Add new Recipe</a></td></tr>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    </tbody>
-</table>
+</div>
 </body>
 </html>
