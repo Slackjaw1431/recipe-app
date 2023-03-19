@@ -5,6 +5,7 @@ import com.tmportfolio.recipeapp.converters.RecipeCommandToRecipe;
 import com.tmportfolio.recipeapp.converters.RecipeToRecipeCommand;
 import com.tmportfolio.recipeapp.model.Recipe;
 import com.tmportfolio.recipeapp.repositories.RecipeRepository;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -47,6 +48,7 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
+    @Transactional
     public RecipeCommand saveRecipeCommand(RecipeCommand command) {
         Recipe detachedRecipe = recipeCommandToRecipe.convert(command);
         Recipe savedRecipe = recipeRepository.save(detachedRecipe);
@@ -62,6 +64,7 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
+    @Transactional
     public RecipeCommand findCommandById(Long valueOf) {
         return recipeToRecipeCommand.convert(findById(valueOf));
     }
