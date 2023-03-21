@@ -1,7 +1,6 @@
 package com.tmportfolio.recipeapp.controllers;
 
 import com.tmportfolio.recipeapp.commands.RecipeCommand;
-import com.tmportfolio.recipeapp.repositories.RecipeRepository;
 import com.tmportfolio.recipeapp.services.RecipeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,7 +41,7 @@ public class RecipeController {
 
     @GetMapping
     @RequestMapping("/recipe/{id}/delete/")
-    public String deleteRecipe(@PathVariable String id){
+    public String deleteRecipeById(@PathVariable String id){
         recipeService.deleteById(Long.valueOf(id));
         return "redirect:/";
     }
