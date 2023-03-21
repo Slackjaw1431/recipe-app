@@ -84,9 +84,9 @@ public class IngredientControllerTest {
         when(unitOfMeasureService.listAllUoms()).thenReturn(new HashSet<>());
 
         //then
-        mockMvc.perform(get("/recipe/1/ingredient/2/update"))
+        mockMvc.perform(get("/recipe/1/ingredient/2/edit"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("recipe/ingredient/ingredientForm"))
+                .andExpect(view().name("/recipe/ingredient/ingredientForm"))
                 .andExpect(model().attributeExists("ingredient"))
                 .andExpect(model().attributeExists("uomList"));
     }
@@ -108,7 +108,7 @@ public class IngredientControllerTest {
                         .param("description", "some string")
                 )
                 .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("/redirect:/recipe/2/ingredient/3/show"));
+                .andExpect(view().name("redirect:/recipe/2/ingredient/3/show"));
 
     }
 
