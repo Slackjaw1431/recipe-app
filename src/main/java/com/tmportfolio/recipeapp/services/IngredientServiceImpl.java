@@ -15,15 +15,17 @@ import java.util.Optional;
 
 @Slf4j
 @Service
-public class IngredientServiceImpl implements IngredientService{
+public class IngredientServiceImpl implements IngredientService {
 
     private final IngredientToIngredientCommand ingredientToIngredientCommand;
     private final IngredientCommandToIngredient ingredientCommandToIngredient;
     private final RecipeRepository              recipeRepository;
-    private final UnitOfMeasureRepository unitOfMeasureRepository;
+    private final UnitOfMeasureRepository       unitOfMeasureRepository;
 
 
-    public IngredientServiceImpl(IngredientToIngredientCommand ingredientToIngredientCommand, IngredientCommandToIngredient ingredientCommandToIngredient, RecipeRepository recipeRepository, UnitOfMeasureRepository unitOfMeasureRepository) {
+    public IngredientServiceImpl(IngredientToIngredientCommand ingredientToIngredientCommand,
+                                 IngredientCommandToIngredient ingredientCommandToIngredient,
+                                 RecipeRepository recipeRepository, UnitOfMeasureRepository unitOfMeasureRepository) {
         this.ingredientToIngredientCommand = ingredientToIngredientCommand;
         this.ingredientCommandToIngredient = ingredientCommandToIngredient;
         this.recipeRepository = recipeRepository;
@@ -35,7 +37,7 @@ public class IngredientServiceImpl implements IngredientService{
 
         Optional<Recipe> recipeOptional = recipeRepository.findById(recipeId);
 
-        if (!recipeOptional.isPresent()){
+        if (!recipeOptional.isPresent()) {
             //todo impl error handling
             log.error("recipe id not found. Id: " + recipeId);
         }
@@ -44,13 +46,12 @@ public class IngredientServiceImpl implements IngredientService{
 
         Optional<IngredientCommand> ingredientCommandOptional = recipe.getIngredients().stream()
                 .filter(ingredient -> ingredient.getId().equals(ingredientId))
-                .map( ingredient -> ingredientToIngredientCommand.convert(ingredient)).findFirst();
+                .map(ingredient -> ingredientToIngredientCommand.convert(ingredient)).findFirst();
 
-        if(!ingredientCommandOptional.isPresent()){
+        if (!ingredientCommandOptional.isPresent()) {
             //todo impl error handling
             log.error("Ingredient id not found: " + ingredientId);
         }
-
         return ingredientCommandOptional.get();
     }
 
@@ -92,6 +93,32 @@ public class IngredientServiceImpl implements IngredientService{
                     .filter(recipeIngredients -> recipeIngredients.getId().equals(command.getId()))
                     .findFirst()
                     .get());
+        }
+    }
+
+    @Override
+    public void deleteById(Long recipeId, Long ingredientId) {
+
+        log.debug("Deleting ingredient: " + ingredientId + " from " + recipeId);
+
+        Optional<Recipe> recipeOptional = recipeRepository.findById(recipeId);
+
+        if (recipeOptional.isPresent()) {
+            Recipe recipe = recipeOptional.get();
+
+            Optional<Ingredient> ingredientOptional = recipe.getIngredients()
+                    .stream().filter(ingredient -> ingredient.getId().equals(ingredientId)).findFirst();
+
+            if (ingredientOptional.isPresent()) {
+                Ingredient ingredientToDelete = ingredientOptional.get();
+                ingredientToDelete.setRecipe(null);
+                recipe.getIngredients().remove(ingredientToDelete);
+                recipeRepository.save(recipe);
+            } else {
+                log.debug("Ingredient not found");
+            }
+        } else {
+            log.debug("Recipe not found");
         }
     }
 }
