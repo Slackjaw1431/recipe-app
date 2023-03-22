@@ -5,7 +5,8 @@ import lombok.*;
 
 import java.math.BigDecimal;
 
-@Data
+@Getter
+@Setter
 @EqualsAndHashCode(exclude = {"recipe"})//many to many etc relationships may cause errors otherwise
 @Entity
 public class Ingredient {
