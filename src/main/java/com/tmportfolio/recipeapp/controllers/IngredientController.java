@@ -26,22 +26,19 @@ public class IngredientController {
         this.unitOfMeasureService = unitOfMeasureService;
     }
 
-    @GetMapping
-    @RequestMapping("/recipe/{id}/ingredients/")
+    @GetMapping("/recipe/{id}/ingredients/")
     public String getIngredientList(@PathVariable String id, Model model){
         model.addAttribute("recipe", recipeService.findCommandById(Long.valueOf(id)));
         return "/recipe/ingredient/list";
     }
 
-    @GetMapping
-    @RequestMapping("/recipe/{recipeId}/ingredient/{id}/show")
+    @GetMapping("/recipe/{recipeId}/ingredient/{id}/show")
     public String showIngredient(@PathVariable String id, @PathVariable String recipeId, Model model){
         model.addAttribute("ingredient", ingredientService.findByRecipeIdAndIngredientId(Long.valueOf(recipeId),Long.valueOf(id)));
         return "/recipe/ingredient/show";
     }
 
-    @GetMapping
-    @RequestMapping("recipe/{recipeId}/ingredient/{id}/edit")
+    @GetMapping("recipe/{recipeId}/ingredient/{id}/edit")
     public String updateRecipeIngredient(@PathVariable String recipeId,
                                          @PathVariable String id, Model model){
         model.addAttribute("ingredient", ingredientService.findByRecipeIdAndIngredientId(Long.valueOf(recipeId), Long.valueOf(id)));
@@ -69,8 +66,7 @@ public class IngredientController {
         return "redirect:/recipe/" + recipeId + "/ingredients/";
     }
 
-    @GetMapping
-    @RequestMapping("/recipe/{recipeId}/ingredient/new")
+    @GetMapping("/recipe/{recipeId}/ingredient/new")
     public String newRecipe(@PathVariable String recipeId, Model model){
 
         //make sure we have a good id value
