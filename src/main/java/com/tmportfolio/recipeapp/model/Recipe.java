@@ -23,6 +23,7 @@ public class Recipe {
     private Integer prepTime;
     private Integer cookTime;
     private Integer serving;
+    @Lob
     private Byte[]  image;
 
     @Enumerated(value = EnumType.STRING)
