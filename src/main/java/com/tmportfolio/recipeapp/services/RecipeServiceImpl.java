@@ -3,6 +3,7 @@ package com.tmportfolio.recipeapp.services;
 import com.tmportfolio.recipeapp.commands.RecipeCommand;
 import com.tmportfolio.recipeapp.converters.RecipeCommandToRecipe;
 import com.tmportfolio.recipeapp.converters.RecipeToRecipeCommand;
+import com.tmportfolio.recipeapp.exceptions.NotFoundException;
 import com.tmportfolio.recipeapp.model.Recipe;
 import com.tmportfolio.recipeapp.repositories.RecipeRepository;
 import jakarta.transaction.Transactional;
@@ -42,7 +43,7 @@ public class RecipeServiceImpl implements RecipeService {
         Optional<Recipe> foundRecipe = recipeRepository.findById(aLong);
 
         if(!foundRecipe.isPresent()){
-            return null;
+            throw new NotFoundException("Recipe not found for ID value: " + aLong);
         }
         return foundRecipe.get();
     }

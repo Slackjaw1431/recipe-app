@@ -2,6 +2,7 @@ package com.tmportfolio.recipeapp.controllers;
 
 import com.tmportfolio.recipeapp.commands.RecipeCommand;
 
+import com.tmportfolio.recipeapp.exceptions.NotFoundException;
 import com.tmportfolio.recipeapp.model.Recipe;
 import com.tmportfolio.recipeapp.services.RecipeService;
 import org.junit.Before;
@@ -97,4 +98,16 @@ public class RecipeControllerTest {
 
         verify(recipeService, times(1)).deleteById(anyLong());
     }
+
+    @Test
+    public void testGetRecipeNotFound() throws Exception {
+
+        when(recipeService.findById(anyLong())).thenThrow(NotFoundException.class);
+
+        mockMvc.perform(get("/recipe/1/show"))
+                .andExpect(status().isNotFound())
+                .andExpect(view().name("404error"));
+    }
+
+
 }

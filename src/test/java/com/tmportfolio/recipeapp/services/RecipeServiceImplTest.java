@@ -4,6 +4,7 @@ package com.tmportfolio.recipeapp.services;
 import com.tmportfolio.recipeapp.commands.RecipeCommand;
 import com.tmportfolio.recipeapp.converters.RecipeCommandToRecipe;
 import com.tmportfolio.recipeapp.converters.RecipeToRecipeCommand;
+import com.tmportfolio.recipeapp.exceptions.NotFoundException;
 import com.tmportfolio.recipeapp.model.Recipe;
 import com.tmportfolio.recipeapp.repositories.RecipeRepository;
 
@@ -55,6 +56,19 @@ public class RecipeServiceImplTest {
         verify(recipeRepository, times(1)).findById(anyLong());
         verify(recipeRepository, never()).findAll();
     }
+
+    @Test(expected = NotFoundException.class)
+    public void getRecipeByIdTestNotFound() throws Exception {
+        Optional<Recipe> recipeOptional = Optional.empty();
+        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+        Recipe recipeReturned = recipeService.findById(1L);
+    }
+
+    @Test(expected = NumberFormatException.class)
+    public void getRecipeById_throws_NumberFormatException_when_id_is_not_a_number() throws Exception{
+        recipeService.findById(Long.valueOf("data"));
+    }
+
 
     @Test
     public void getRecipeCommandByIdTest() throws Exception {
